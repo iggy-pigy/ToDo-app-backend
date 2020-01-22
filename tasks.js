@@ -35,4 +35,12 @@ app.put("/tasks/:id", function(request, response) {
   });
 });
 
+app.delete("/tasks/:id", function(request, response) {
+  const id = request.params.id;
+
+  response.status(200).json({
+    message: `You issued a delete request for ID: ${id}`
+  });
+});
+
 module.exports.handler = serverless(app);
