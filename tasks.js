@@ -2,14 +2,13 @@ const express = require("express");
 const serverless = require("serverless-http");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const mysql = require("mysql");
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
 app.get("/tasks", function(request, response) {
-  console.log(request);
-
   response.status(200).json({
     tasks: [
       { text: "water plants", completed: true, id: 1 },
