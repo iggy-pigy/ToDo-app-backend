@@ -41,6 +41,22 @@ app.post("/tasks", function(request, response) {
   );
 });
 
+app.put("/tasks/:taskId", function(request, response) {
+  const taskId = req.params.taskId;
+  const updateTask = req.body;
+  connection.query(
+    `UPDATE Task SET ? WHERE taskId = ?`,
+    [updateTask, taskId],
+    function(err) {
+      if (err) {
+        response.status(500).json({ error: err });
+      } else {
+        response.sendStatus(200);
+      }
+    }
+  );
+});
+
 app.delete("/tasks/:id", function(request, response) {
   const id = request.params.id;
 
