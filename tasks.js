@@ -23,8 +23,8 @@ app.get("/tasks", function(request, response) {
 });
 
 app.post("/tasks", function(request, response) {
-  const textValue = req.body.text;
-  const completedValue = req.body.completed;
+  const textValue = request.body.text;
+  const completedValue = request.body.completed;
 
   connection.query(
     "INSERT INTO Task (text, completed) VALUES (?, ?)",
@@ -42,8 +42,8 @@ app.post("/tasks", function(request, response) {
 });
 
 app.put("/tasks/:taskId", function(request, response) {
-  const taskId = req.params.taskId;
-  const updateTask = req.body;
+  const taskId = request.params.taskId;
+  const updateTask = request.body;
   connection.query(
     `UPDATE Task SET ? WHERE taskId = ?`,
     [updateTask, taskId],
@@ -57,11 +57,17 @@ app.put("/tasks/:taskId", function(request, response) {
   );
 });
 
-app.delete("/tasks/:id", function(request, response) {
-  const id = request.params.id;
+app.delete("/tasks/:taskId", function(request, response) {
+  const taskId = request.params.taskId;
 
-  response.status(200).json({
-    message: `You issued a delete request for ID: ${id}`
+  connection.query("DELETE FROM Task WHERE taskId = ? ", [taskId], function(
+    err
+  ) {
+    if (err) {
+      response.status(500).json({ error: err });
+    } else {
+      response.sendStatus(200);
+    }
   });
 });
 
