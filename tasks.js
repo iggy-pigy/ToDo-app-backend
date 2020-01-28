@@ -23,19 +23,22 @@ app.get("/tasks", function(request, response) {
 });
 
 app.post("/tasks", function(request, response) {
-  const text = request.body.text;
+  const textValue = req.body.text;
+  const completedValue = req.body.completed;
 
-  response.status(201).json({
-    message: `Received a request to add task ${text}`
-  });
-});
-
-app.put("/tasks/:id", function(request, response) {
-  const id = request.params.id;
-
-  response.status(200).json({
-    message: `You issued a put request for ID: ${id}`
-  });
+  connection.query(
+    "INSERT INTO Task (text, completed) VALUES (?, ?)",
+    [textValue, completedValue],
+    function(err, data) {
+      if (err) {
+        response.status(500).json({ error: err });
+      } else {
+        response.status(200).json({
+          tasks: data
+        });
+      }
+    }
+  );
 });
 
 app.delete("/tasks/:id", function(request, response) {
