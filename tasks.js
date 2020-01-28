@@ -9,12 +9,16 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get("/tasks", function(request, response) {
-  response.status(200).json({
-    tasks: [
-      { text: "water plants", completed: true, id: 1 },
-      { text: "buy milk", completed: true, id: 2 },
-      { text: "call mom", completed: false, id: 3 }
-    ]
+  connection.query("SELECT * FROM Task", function(err, data) {
+    if (err) {
+      response.status(500).json({
+        error: err
+      });
+    } else {
+      response.status(200).json({
+        tasks: data
+      });
+    }
   });
 });
 
