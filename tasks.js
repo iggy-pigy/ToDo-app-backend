@@ -8,6 +8,13 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+const connection = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: "ToDoApplication"
+});
+
 app.get("/tasks", function(request, response) {
   connection.query("SELECT * FROM Task", function(err, data) {
     if (err) {
