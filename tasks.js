@@ -16,6 +16,7 @@ const connection = mysql.createConnection({
 });
 
 app.get("/tasks", function(request, response) {
+  console.log("RECEIVED REQUEST FOR GET /tasks");
   connection.query("SELECT * FROM Task", function(err, data) {
     if (err) {
       response.status(500).json({
@@ -30,6 +31,7 @@ app.get("/tasks", function(request, response) {
 });
 
 app.post("/tasks", function(request, response) {
+  console.log("RECEIVED REQUEST FOR POST /tasks", { data: request.body });
   const newTask = request.body;
 
   connection.query("INSERT INTO Task SET ?", [newTask], function(err, data) {
@@ -54,6 +56,7 @@ app.put("/tasks/:id", function(request, response) {
       response.sendStatus(200);
     }
   });
+  console.log("RECEIVED REQUEST FOR PUT /tasks/${id}", { data: updateTask });
 });
 
 app.delete("/tasks/:id", function(request, response) {
