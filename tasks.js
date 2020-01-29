@@ -30,22 +30,16 @@ app.get("/tasks", function(request, response) {
 });
 
 app.post("/tasks", function(request, response) {
-  const textValue = request.body.text;
-  const completedValue = request.body.completed;
+  const newTask = request.body;
 
-  connection.query(
-    "INSERT INTO Task (text, completed) VALUES (?, ?)",
-    [textValue, completedValue],
-    function(err, data) {
-      if (err) {
-        response.status(500).json({ error: err });
-      } else {
-        response.status(200).json({
-          tasks: data
-        });
-      }
+  connection.query("INSERT INTO Task SET ?", [newTask], function(err, data) {
+    if (err) {
+      response.status(500).json({ error: err });
+    } else {
+      newTask.id = data.insertId;
+      response.status(201).json({ newTask });
     }
-  );
+  });
 });
 
 app.put("/tasks/:id", function(request, response) {
