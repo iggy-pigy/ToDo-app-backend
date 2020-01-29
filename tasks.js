@@ -48,28 +48,24 @@ app.post("/tasks", function(request, response) {
   );
 });
 
-app.put("/tasks/:taskId", function(request, response) {
-  const taskId = request.params.taskId;
+app.put("/tasks/:id", function(request, response) {
+  const id = request.params.id;
   const updateTask = request.body;
-  connection.query(
-    `UPDATE Task SET ? WHERE taskId = ?`,
-    [updateTask, taskId],
-    function(err) {
-      if (err) {
-        response.status(500).json({ error: err });
-      } else {
-        response.sendStatus(200);
-      }
-    }
-  );
-});
-
-app.delete("/tasks/:taskId", function(request, response) {
-  const taskId = request.params.taskId;
-
-  connection.query("DELETE FROM Task WHERE taskId = ? ", [taskId], function(
+  connection.query(`UPDATE Task SET ? WHERE id = ?`, [updateTask, id], function(
     err
   ) {
+    if (err) {
+      response.status(500).json({ error: err });
+    } else {
+      response.sendStatus(200);
+    }
+  });
+});
+
+app.delete("/tasks/:id", function(request, response) {
+  const id = request.params.id;
+
+  connection.query("DELETE FROM Task WHERE id = ? ", [id], function(err) {
     if (err) {
       response.status(500).json({ error: err });
     } else {
