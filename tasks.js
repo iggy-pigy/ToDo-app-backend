@@ -23,8 +23,12 @@ app.get("/tasks", function(request, response) {
         error: err
       });
     } else {
+      const mapped = data.map(task => {
+        task.completed = task.completed === 1 ? true: false;
+        return task;
+      })
       response.status(200).json({
-        tasks: data
+        tasks: mapped
       });
     }
   });
