@@ -24,9 +24,9 @@ app.get("/tasks", function(request, response) {
       });
     } else {
       const mapped = data.map(task => {
-        task.completed = task.completed === 1 ? true: false;
+        task.completed = task.completed === 1 ? true : false;
         return task;
-      })
+      });
       response.status(200).json({
         tasks: mapped
       });
