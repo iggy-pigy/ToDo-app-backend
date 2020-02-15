@@ -15,7 +15,7 @@ This project uses the following technology:
 * AWS RDS
 * ESLint
 
-# Endpoints
+## Endpoints
 The API exposes the following endpoints:
 
 **GET /tasks**
@@ -29,7 +29,7 @@ https://gbrvvbp9nc.execute-api.eu-west-1.amazonaws.com/dev/tasks
 
 Will create a new task when sent a JSON payload in the format:
 <pre><code>{
-"task": "make a cuo of tea",
+"task": "make a cup of tea",
 "completed": false
 }</code></pre> 
 __________________________________________________________________
