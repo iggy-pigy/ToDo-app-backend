@@ -1,5 +1,5 @@
 # Todo Application - Backend
-This is the back end of a Todo Application, built throughout the Tech Returners Your Journey Into Tech course. It is consumed by a front end React application, available [here] (https://github.com/iggy-pigy/ToDo-app-frontend) and connects to an RDS Database.
+This is the back end of a Todo Application, built throughout the Tech Returners Your Journey Into Tech course. It is consumed by a front end React application, available at: https://github.com/iggy-pigy/ToDo-app-frontend and connects to an RDS Database.
 
 The hosted version of the application is available here: https://iggy-pigy.github.io/ToDo-app-frontend/
 
